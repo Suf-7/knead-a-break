@@ -218,9 +218,11 @@ const style = `
   }
   .mobile-menu-panel a { font-size: 14px; padding: 8px 0; }
 
-  .hero-image-wrap { max-width: 380px; width: 100%; }
+  .hero-image-wrap { max-width: 380px; width: 100%; position: relative; }
   .hero-photo { width: 100%; max-width: 380px; height: 340px; }
   .hero-badge { position: absolute; bottom: 20px; right: -10px; }
+  .stats-num   { font-size: 30px; }
+  .stats-label { font-size: 9px; }
 
   /* Products grid is fluid via auto-fill; ensure min on mobile */
 
@@ -236,7 +238,8 @@ const style = `
   @media (max-width: 768px) {
     .section-pad  { padding-left: 20px; padding-right: 20px; }
     .nav-pad      { padding: 14px 20px; }
-    .announce-pad { padding: 8px 20px; gap: 10px; justify-content: center; }
+    .announce-pad { padding: 10px 20px; gap: 6px 14px; justify-content: center; }
+    .announce-pad span { font-size: 10px !important; }
 
     .hero-grid, .split-grid, .story-grid, .art-grid {
       grid-template-columns: 1fr; gap: 32px;
@@ -246,20 +249,33 @@ const style = `
 
     .section-head { flex-direction: column; align-items: flex-start; }
     .newsletter-row { flex-direction: column; align-items: stretch; }
-    .stats-row { gap: 24px; }
+    .stats-row { gap: 20px; justify-content: space-between; width: 100%; }
+    .stats-num   { font-size: 26px !important; }
+    .stats-label { font-size: 8px !important; }
 
     .nav-links, .nav-cta-desktop { display: none; }
     .mobile-menu-btn { display: inline-flex; }
+    .crunchy-tag, .delight-cookie { display: none !important; }
 
-    .hero-card       { padding: 32px 24px 0 !important; border-radius: 20px !important; min-height: auto !important; }
+    .hero-card       { padding: 32px 20px 32px !important; border-radius: 20px !important; min-height: auto !important; }
     .hero-section    { padding: 16px 16px 32px !important; }
-    .hero-image-wrap { margin-top: 12px; }
-    .hero-photo      { height: 260px !important; }
-    .hero-badge      { right: 8px !important; bottom: 12px !important; padding: 8px 12px !important; }
-    .hero-badge img  { width: 42px !important; height: 42px !important; }
+    .hero-image-wrap { margin: 12px auto 0 !important; padding-bottom: 12px; }
+    .hero-photo      { height: 260px !important; border-radius: 16px !important; border-bottom: 1px solid rgba(218,165,32,.28) !important; }
+    .hero-badge {
+      position: static !important;
+      margin: -28px auto 0 !important;
+      right: auto !important; bottom: auto !important;
+      padding: 10px 14px !important;
+      align-self: center;
+      width: max-content;
+      max-width: calc(100% - 32px);
+    }
+    .hero-badge img  { width: 44px !important; height: 44px !important; }
+    .hero-cta-row    { flex-wrap: wrap; gap: 12px !important; margin-bottom: 8px !important; }
 
     .delight-photo   { height: 240px !important; }
     .delight-stamp   { display: none !important; }
+    .featured-card   { max-width: 100% !important; }
 
     .why-grid { grid-template-columns: 1fr; gap: 16px; }
     .why-card { padding: 24px 20px !important; }
@@ -277,6 +293,7 @@ const style = `
     .story-images > div { margin-top: 0 !important; height: 160px !important; }
 
     .ticker-rail { animation-duration: 18s; }
+    .ticker-item { font-size: 11px !important; padding-right: 32px !important; }
 
     /* Tap targets ≥ 44px */
     .add-btn { padding: 10px 18px; }
@@ -286,14 +303,19 @@ const style = `
     .pad-mobile { padding: 32px 0 !important; }
   }
 
-  /* Small mobile (≤ 420px) */
-  @media (max-width: 420px) {
+  /* Small mobile (≤ 480px) */
+  @media (max-width: 480px) {
     .section-pad  { padding-left: 16px; padding-right: 16px; }
     .nav-pad      { padding: 12px 16px; }
     .brand-text   { font-size: 20px !important; }
-    .hero-card    { padding: 24px 18px 0 !important; }
+    .hero-card    { padding: 24px 16px 24px !important; }
     .hero-photo   { height: 220px !important; }
-    .crunchy-tag  { display: none; }
+    .crunchy-tag  { display: none !important; }
+    .tasty-tag    { font-size: .4em !important; padding: 2px 12px !important; }
+    .stats-num    { font-size: 22px !important; }
+    .stats-row    { gap: 14px; }
+    .story-images > div { height: 140px !important; }
+    .announce-pad span:nth-child(3) { display: none; }
   }
 `;
 
@@ -549,11 +571,11 @@ export default function KneadABreak() {
             <div style={{ position:"relative", zIndex:2 }}>
               <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:10 }}>
                 <span style={{ color:G1, fontSize:18 }}>✦</span>
-                <span className="fd" style={{ fontWeight:600, fontSize:10, color:"rgba(242,232,201,.5)", textTransform:"uppercase", letterSpacing:".18em" }}>Est. 2012 · Lahore</span>
+                <span className="fd" style={{ fontWeight:600, fontSize:10, color:"rgba(242,232,201,.5)", textTransform:"uppercase", letterSpacing:".18em" }}>Est. 2025 · Lahore</span>
               </div>
               <div className="fd" style={{ fontSize:"clamp(42px,7vw,82px)", lineHeight:.92, color:CR, textTransform:"uppercase", letterSpacing:".015em" }}>
                 BAKE{" "}
-                <span style={{ background:SK, color:M, borderRadius:40, padding:"2px 18px", fontSize:".5em", verticalAlign:"middle", display:"inline-block", transform:"rotate(-3deg)", marginBottom:4 }}>Tasty</span><br />
+                <span className="tasty-tag" style={{ background:SK, color:M, borderRadius:40, padding:"2px 18px", fontSize:".5em", verticalAlign:"middle", display:"inline-block", transform:"rotate(-3deg)", marginBottom:4 }}>Tasty</span><br />
                 THE<br />
                 <span style={{ position:"relative", display:"inline-block", color:G1 }}>
                   COOKIES
@@ -563,7 +585,7 @@ export default function KneadABreak() {
               <p className="fd" style={{ fontWeight:600, fontSize:11, color:"rgba(242,232,201,.65)", marginTop:20, maxWidth:280, lineHeight:1.8, textTransform:"uppercase", letterSpacing:".08em" }}>
                 Premium bread and cookies<br />made from scratch
               </p>
-              <div style={{ display:"flex", gap:16, alignItems:"center", marginTop:28, marginBottom:48 }}>
+              <div className="hero-cta-row" style={{ display:"flex", gap:16, alignItems:"center", marginTop:28, marginBottom:48 }}>
                 <button className="btn-p fd" style={{ background:G1, border:`2.5px solid ${G1}`, borderRadius:50, padding:"14px 32px", fontFamily:"'Cinzel',serif", fontSize:12, color:M, cursor:"pointer", textTransform:"uppercase", letterSpacing:".06em", fontWeight:700 }}>
                   ORDER NOW
                 </button>
@@ -618,7 +640,7 @@ export default function KneadABreak() {
               YOUR ONLY<br />
               <span style={{ color:G1, position:"relative" }}>
                 DOSE OF DELIGHT
-                <span style={{ position:"absolute", top:-8, right:-32, fontSize:28 }}>🍪</span>
+                <span className="delight-cookie" style={{ position:"absolute", top:-8, right:-32, fontSize:28 }}>🍪</span>
               </span>
             </div>
             <p className="fd" style={{ color:`rgba(218,165,32,.58)`, fontWeight:600, fontSize:10, marginTop:12, textTransform:"uppercase", letterSpacing:".14em" }}>Featured Item —</p>
@@ -728,8 +750,8 @@ export default function KneadABreak() {
         {/* ── Ticker ── */}
         <div style={{ background:P, padding:"18px 0", overflow:"hidden", borderTop:"1px solid rgba(218,165,32,.14)", borderBottom:"1px solid rgba(218,165,32,.14)" }}>
           <div className="ticker-rail">
-            {Array(10).fill(null).map((_, i) => (
-              <div key={i} className="fd" style={{ color:G1, fontSize:14, textTransform:"uppercase", letterSpacing:".14em", whiteSpace:"nowrap", paddingRight:64 }}>
+              {Array(10).fill(null).map((_, i) => (
+              <div key={i} className="fd ticker-item" style={{ color:G1, fontSize:14, textTransform:"uppercase", letterSpacing:".14em", whiteSpace:"nowrap", paddingRight:64 }}>
                 ✦ WITH ENOUGH BUTTER, ANYTHING IS GOOD — ★ 4.9 &nbsp; ·&nbsp;
               </div>
             ))}
@@ -742,7 +764,7 @@ export default function KneadABreak() {
           <div>
             <div className="fd" style={{ fontWeight:600, fontSize:10, textTransform:"uppercase", letterSpacing:".22em", color:SK, marginBottom:12 }}>✦ Our Story</div>
             <div className="fd" style={{ fontSize:"clamp(28px,3.5vw,46px)", textTransform:"uppercase", color:CR, lineHeight:1, marginBottom:20, letterSpacing:".02em" }}>
-              BAKED WITH LOVE<br />SINCE 2012
+              BAKED WITH LOVE<br />SINCE 2025
             </div>
             <p className="fb" style={{ fontSize:17, color:"rgba(242,232,201,.62)", lineHeight:1.9, marginBottom:20 }}>
               Knead A Break started as a single table at the Lahore Sunday Market — just my grandmother's recipes and a borrowed oven. Twelve years later we're still using the same recipes, just at a slightly bigger scale.
@@ -752,9 +774,9 @@ export default function KneadABreak() {
             </p>
             <div className="stats-row">
               {[["12+","Years Baking"],["50K","Happy Customers"],["200+","Recipes"]].map(([n, l]) => (
-                <div key={l}>
-                  <div className="fd" style={{ fontSize:30, color:G1, textShadow:`0 0 22px rgba(218,165,32,.45)` }}>{n}</div>
-                  <div className="fd" style={{ fontSize:9, fontWeight:600, color:"rgba(242,232,201,.38)", textTransform:"uppercase", letterSpacing:".12em" }}>{l}</div>
+                <div key={l} style={{ minWidth:0 }}>
+                  <div className="fd stats-num" style={{ color:G1, textShadow:`0 0 22px rgba(218,165,32,.45)`, lineHeight:1 }}>{n}</div>
+                  <div className="fd stats-label" style={{ fontWeight:600, color:"rgba(242,232,201,.38)", textTransform:"uppercase", letterSpacing:".12em", marginTop:4 }}>{l}</div>
                 </div>
               ))}
             </div>
